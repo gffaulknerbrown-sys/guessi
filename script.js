@@ -362,23 +362,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 6000);
 
     toast.onclick = async () => {
-      // Use native share sheet on mobile
-      if (navigator.share) {
-        try {
-          await navigator.share({
-            title: "Guessi ⚽",
-            text: message,
-            url: "https://guessi.app"
-          });
-          return;
-        } catch {
-          // User cancelled or share failed — fall through to clipboard
-        }
-      }
-      // Desktop fallback — copy to clipboard
       try {
         await navigator.clipboard.writeText(message);
-        text.textContent = "Copied! ✔";
+        text.textContent = "Copied to clipboard! ✔";
+        setTimeout(() => { text.textContent = message; }, 2000);
       } catch {
         text.textContent = "Clipboard blocked";
       }
