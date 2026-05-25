@@ -4,7 +4,6 @@ function removeAccents(str) {
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
-// Global flag so daily mode doesn't overwrite archive mode
 let archiveMode = false;
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -78,25 +77,101 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   let stats = loadStats();
-
-  // Ensure stats always has keys 1–8
   for (let i = 1; i <= 8; i++) {
     if (stats.guessDistribution[i] === undefined) stats.guessDistribution[i] = 0;
   }
   saveStats(stats);
 
   // ------------------------------
+  // GAME STATE SAVE / RESTORE
+  // ------------------------------
+  function saveGameState() {
+    const state = {
+      date: getTodayKey(),
+      guesses: guessResults.map(g => ({
+        playerName: g.player.name,
+        result: g.result
+      })),
+      completed: false,
+      outcome: null // 'win' or 'loss'
+    };
+    localStorage.setItem("guessi-state", JSON.stringify(state));
+  }
+
+  function markGameComplete(outcome) {
+    const state = JSON.parse(localStorage.getItem("guessi-state") || "{}");
+    state.completed = true;
+    state.outcome = outcome;
+    localStorage.setItem("guessi-state", JSON.stringify(state));
+  }
+
+  function restoreGameState() {
+    const raw = localStorage.getItem("guessi-state");
+    if (!raw) return false;
+
+    const state = JSON.parse(raw);
+    if (state.date !== getTodayKey()) {
+      // Stale state from a previous day — clear it
+      localStorage.removeItem("guessi-state");
+      return false;
+    }
+
+    // Replay all saved guesses silently to rebuild the UI
+    state.guesses.forEach((g, index) => {
+      const player = players.find(p => p.name === g.playerName);
+      if (!player) return;
+
+      // All guesses except the last go into history
+      if (index < state.guesses.length - 1) {
+        addGuessRow(player, g.result);
+      } else {
+        // Most recent guess goes into the current card
+        renderPlayerProfile(player, g.result);
+      }
+
+      guessResults.push({ player, result: g.result });
+    });
+
+    if (guessResults.length > 0) {
+      revealGuessSections();
+      updateGuessCounter();
+    }
+
+    // If game was completed, restore end state
+    if (state.completed) {
+      guessInput.disabled = true;
+      guessButton.disabled = true;
+
+      if (state.outcome === 'win') {
+        profileSection.classList.add("correct-celebration");
+        document.getElementById("game-over-overlay").classList.add("active");
+        const winBanner = document.getElementById("game-over-banner");
+        winBanner.textContent = `Correct! It was ${targetPlayer.name}`;
+        winBanner.classList.add("show");
+      } else if (state.outcome === 'loss') {
+        const card = document.querySelector(".db-player-card");
+        if (card) card.classList.add("game-over-fail");
+        document.getElementById("game-over-overlay").classList.add("active");
+        const failBanner = document.getElementById("game-over-banner");
+        failBanner.classList.add("fail");
+        failBanner.innerHTML = `Unlucky! The answer was ${targetPlayer.name} <span class="banner-sub">Better luck tomorrow ⚽</span>`;
+        failBanner.classList.add("show");
+      }
+    }
+
+    return true;
+  }
+
+  // ------------------------------
   // AUTOCOMPLETE
   // ------------------------------
   guessInput.addEventListener("input", () => {
     const text = guessInput.value.toLowerCase().trim();
-
     if (!text) { suggestionsBox.style.display = "none"; return; }
 
     const matches = players.filter(p =>
       removeAccents(p.name.toLowerCase()).includes(removeAccents(text))
     );
-
     if (!matches.length) { suggestionsBox.style.display = "none"; return; }
 
     suggestionsBox.innerHTML = matches
@@ -153,7 +228,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const guessedPlayer = findPlayerByName(value);
-
     if (!guessedPlayer) {
       guessInput.classList.add("shake");
       setTimeout(() => guessInput.classList.remove("shake"), 300);
@@ -172,6 +246,7 @@ document.addEventListener("DOMContentLoaded", () => {
     renderPlayerProfile(guessedPlayer, result);
     guessResults.push({ player: guessedPlayer, result });
     updateGuessCounter();
+    saveGameState();
 
     // CORRECT GUESS
     if (
@@ -210,6 +285,8 @@ document.addEventListener("DOMContentLoaded", () => {
         stats.lastCompletedDate = todayKey;
         saveStats(stats);
       }
+
+      markGameComplete('win');
 
       const guessCount = guessResults.length;
       const shareMessage = `I guessed the player in ${guessCount} guess${guessCount === 1 ? "" : "es"}! https://guessi.app`;
@@ -289,11 +366,9 @@ document.addEventListener("DOMContentLoaded", () => {
     guessInput.disabled = true;
     guessButton.disabled = true;
 
-    // Apply fail styling to the player card
     const card = document.querySelector(".db-player-card");
     if (card) card.classList.add("game-over-fail");
 
-    // Show red game-over overlay and banner
     document.getElementById("game-over-overlay").classList.add("active");
     const failBanner = document.getElementById("game-over-banner");
     failBanner.classList.add("fail");
@@ -301,6 +376,7 @@ document.addEventListener("DOMContentLoaded", () => {
     failBanner.classList.add("show");
 
     showShareToast(`Out of guesses! The player was ${targetPlayer.name}.`);
+    markGameComplete('loss');
   }
 
   // ------------------------------
@@ -623,15 +699,12 @@ document.addEventListener("DOMContentLoaded", () => {
   // YESTERDAY BUTTON
   // ------------------------------
   document.getElementById("yesterday-btn").addEventListener("click", () => {
-    // If already in yesterday mode, return to today
     if (archiveMode) {
       archiveMode = false;
       targetPlayer = players[getIndexForDate(getTodayKey())];
-
       guessResults = [];
       guessesContainer.innerHTML = "";
 
-      // Reset inline style set by renderPlayerProfile so .hidden class takes effect
       profileSection.style.display = "";
       document.getElementById("player-image").src = "";
       document.getElementById("player-name").textContent = "";
@@ -645,17 +718,22 @@ document.addEventListener("DOMContentLoaded", () => {
       renderHiddenDailyCard();
       document.getElementById("current-header").textContent = "CURRENT GUESS";
 
-      // Re-enable input unless today is already completed
-      if (stats.lastCompletedDate === getTodayKey()) {
-        guessInput.disabled = true;
-        guessButton.disabled = true;
-        showShareToast("You've already played today! Come back tomorrow.");
-      } else {
-        guessInput.disabled = false;
-        guessButton.disabled = false;
-        guessInput.value = "";
-      }
+      // Restore today's in-progress game if there is one
+      restoreGameState();
 
+      // Only re-enable input if game isn't over
+      const state = JSON.parse(localStorage.getItem("guessi-state") || "{}");
+      if (!state.completed) {
+        if (stats.lastCompletedDate === getTodayKey()) {
+          guessInput.disabled = true;
+          guessButton.disabled = true;
+          showShareToast("You've already played today! Come back tomorrow.");
+        } else {
+          guessInput.disabled = false;
+          guessButton.disabled = false;
+          guessInput.value = "";
+        }
+      }
       return;
     }
 
@@ -665,7 +743,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const dateKey = `${yesterday.getFullYear()}-${String(yesterday.getMonth() + 1).padStart(2, "0")}-${String(yesterday.getDate()).padStart(2, "0")}`;
 
     archiveMode = true;
-
     const index = getIndexForDate(dateKey);
     targetPlayer = players[index];
 
@@ -680,11 +757,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     renderPlayerProfile(targetPlayer, neutralResult);
     revealGuessSections();
-
     guessesContainer.innerHTML = "";
     guessInput.disabled = true;
     guessButton.disabled = true;
-
     document.getElementById("current-header").textContent = `Yesterday's Player (${dateKey})`;
   });
 
@@ -724,5 +799,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   statsBtn.addEventListener("click", openStatsModal);
   closeStats.addEventListener("click", closeModal);
+
+  // ------------------------------
+  // RESTORE STATE ON LOAD
+  // ------------------------------
+  restoreGameState();
+
+  // If already completed today, lock input
+  const savedState = JSON.parse(localStorage.getItem("guessi-state") || "{}");
+  if (savedState.completed) {
+    guessInput.disabled = true;
+    guessButton.disabled = true;
+  }
 
 }); // END DOMContentLoaded
