@@ -363,11 +363,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
     toast.onclick = async () => {
       try {
-        await navigator.clipboard.writeText(message);
+        // Build HTML version with clickable link
+        const htmlMessage = message.replace(
+          "guessi.app",
+          "<a href='https://guessi.app'>guessi.app</a>"
+        );
+        const plainText = message;
+
+        // Copy both plain text and HTML to clipboard
+        const clipItem = new ClipboardItem({
+          "text/plain": new Blob([plainText], { type: "text/plain" }),
+          "text/html": new Blob([htmlMessage.replace(/\n/g, "<br>")], { type: "text/html" })
+        });
+        await navigator.clipboard.write([clipItem]);
         text.textContent = "Copied to clipboard! ✔";
         setTimeout(() => { text.textContent = message; }, 2000);
       } catch {
-        text.textContent = "Clipboard blocked";
+        // Fallback to plain text if ClipboardItem not supported
+        try {
+          await navigator.clipboard.writeText(message);
+          text.textContent = "Copied to clipboard! ✔";
+          setTimeout(() => { text.textContent = message; }, 2000);
+        } catch {
+          text.textContent = "Clipboard blocked";
+        }
       }
     };
   }
