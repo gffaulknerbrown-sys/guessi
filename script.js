@@ -149,6 +149,21 @@ document.addEventListener("DOMContentLoaded", () => {
         winBanner.textContent = `Correct! It was ${targetPlayer.name}`;
         winBanner.classList.add("show");
       } else if (state.outcome === 'loss') {
+        // Move the last guess into history, then show target player in current card
+        if (guessResults.length > 0) {
+          const last = guessResults[guessResults.length - 1];
+          addGuessRow(last.player, last.result);
+        }
+        // Show target player with neutral grey result in current card
+        const neutralResult = {
+          clubs: targetPlayer.clubs.map(() => "grey"),
+          positions: targetPlayer.positions.map(() => "grey"),
+          nationality: "grey",
+          age: { color: "grey", arrow: "" },
+          strongFoot: "grey",
+          status: "grey"
+        };
+        renderPlayerProfile(targetPlayer, neutralResult);
         const card = document.querySelector(".db-player-card");
         if (card) card.classList.add("game-over-fail");
         document.getElementById("game-over-overlay").classList.add("active");
