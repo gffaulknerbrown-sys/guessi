@@ -1227,3 +1227,66 @@ html, body {
     right: -10px;
   }
 }
+
+/* ============================
+   HOW TO PLAY MODAL
+============================= */
+.help-content {
+  max-height: 80vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.15) transparent;
+}
+
+.help-content h2 {
+  margin-top: 0;
+  color: #4ade80;
+}
+
+.help-intro {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.help-section {
+  margin-bottom: 18px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.help-section:last-of-type {
+  border-bottom: none;
+}
+
+.help-section h3 {
+  margin: 0 0 10px;
+  font-size: 14px;
+  color: var(--text-main);
+}
+
+.help-section p {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 4px 0;
+  line-height: 1.6;
+}
+
+.help-note {
+  font-size: 12px !important;
+  font-style: italic;
+  opacity: 0.7;
+}
+
+.help-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.help-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+}

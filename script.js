@@ -454,13 +454,22 @@ document.addEventListener("DOMContentLoaded", () => {
   function comparePositions(guessPositions, targetPositions) {
     const results = [];
     const targetGroups = targetPositions.map(p => positionGroups[p]);
+
+    // Count how many target positions are in each group
     const groupCounts = {};
     targetGroups.forEach(g => groupCounts[g] = (groupCounts[g] || 0) + 1);
-    const solvedGroups = new Set();
+
+    // Count how many target positions in each group are exactly matched (green)
+    const greenCountPerGroup = {};
+    guessPositions.forEach(pos => {
+      if (targetPositions.includes(pos)) {
+        const grp = positionGroups[pos];
+        greenCountPerGroup[grp] = (greenCountPerGroup[grp] || 0) + 1;
+      }
+    });
 
     guessPositions.forEach(pos => {
       if (targetPositions.includes(pos)) {
-        solvedGroups.add(positionGroups[pos]);
         results.push("green");
       } else {
         results.push(null);
@@ -469,10 +478,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     return results.map((state, i) => {
       if (state === "green") return "green";
+
       const guessGroup = positionGroups[guessPositions[i]];
+
+      // Group not relevant to target at all
       if (!targetGroups.includes(guessGroup)) return "grey";
-      if (!solvedGroups.has(guessGroup)) return "yellow";
-      if (groupCounts[guessGroup] === 1) return "grey";
+
+      const totalInGroup = groupCounts[guessGroup] || 0;
+      const greenInGroup = greenCountPerGroup[guessGroup] || 0;
+      const remainingInGroup = totalInGroup - greenInGroup;
+
+      // All positions in this group already accounted for by green guesses
+      if (remainingInGroup <= 0) return "grey";
+
+      // There are still unmatched positions in this group → yellow
       return "yellow";
     });
   }
@@ -688,8 +707,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const overlay = document.getElementById("modal-overlay");
   const statsModal = document.getElementById("stats-modal");
   const settingsModal = document.getElementById("settings-modal");
+  const helpModal = document.getElementById("help-modal");
   const statsBtn = document.getElementById("stats-btn");
   const settingsBtn = document.getElementById("settings-btn");
+  const helpBtn = document.getElementById("help-btn");
 
   function openModal(modal) {
     overlay.classList.remove("hidden");
@@ -700,6 +721,7 @@ document.addEventListener("DOMContentLoaded", () => {
     overlay.classList.add("hidden");
     statsModal.classList.add("hidden");
     settingsModal.classList.add("hidden");
+    helpModal.classList.add("hidden");
     if (!archiveMode) {
       guessInput.disabled = false;
       guessButton.disabled = false;
@@ -707,6 +729,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   settingsBtn.addEventListener("click", () => openModal(settingsModal));
+  helpBtn.addEventListener("click", () => openModal(helpModal));
 
   document.querySelectorAll(".close-modal").forEach(btn => {
     btn.addEventListener("click", closeModal);
