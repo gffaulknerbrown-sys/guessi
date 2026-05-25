@@ -352,6 +352,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const toast = document.getElementById("share-toast");
     const text = document.getElementById("share-toast-text");
 
+    // Try native share first (mobile) — gives proper link preview
+    if (navigator.share) {
+      navigator.share({
+        title: "Guessi ⚽",
+        text: message,
+        url: "https://guessi.app"
+      }).catch(() => {});
+    }
+
+    // Always show the toast too
     text.textContent = message;
     toast.classList.remove("hidden");
     setTimeout(() => toast.classList.add("show"), 10);
@@ -364,9 +374,12 @@ document.addEventListener("DOMContentLoaded", () => {
     toast.onclick = async () => {
       try {
         await navigator.clipboard.writeText(message);
-        text.textContent = "Copied to clipboard!";
+        text.textContent = "Copied! ✔";
       } catch {
-        text.textContent = "Clipboard blocked";
+        // Fallback: try native share
+        if (navigator.share) {
+          navigator.share({ title: "Guessi ⚽", text: message, url: "https://guessi.app" });
+        }
       }
     };
   }
