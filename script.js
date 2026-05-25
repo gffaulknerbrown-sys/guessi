@@ -148,6 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const winBanner = document.getElementById("game-over-banner");
         winBanner.textContent = `Correct! It was ${targetPlayer.name}`;
         winBanner.classList.add("show");
+        document.getElementById("current-header").textContent = "TODAY'S PLAYER";
       } else if (state.outcome === 'loss') {
         // Move the last guess into history, then show target player in current card
         if (guessResults.length > 0) {
@@ -171,6 +172,7 @@ document.addEventListener("DOMContentLoaded", () => {
         failBanner.classList.add("fail");
         failBanner.innerHTML = `Unlucky! The answer was ${targetPlayer.name} <span class="banner-sub">Better luck tomorrow ⚽</span>`;
         failBanner.classList.add("show");
+        document.getElementById("current-header").textContent = "TODAY'S PLAYER";
       }
     }
 
@@ -280,6 +282,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const winBanner = document.getElementById("game-over-banner");
       winBanner.textContent = `Correct! It was ${targetPlayer.name}`;
       winBanner.classList.add("show");
+      document.getElementById("current-header").textContent = "TODAY'S PLAYER";
 
       if (!archiveMode && stats.lastCompletedDate !== todayKey) {
         stats.totalGames++;
@@ -389,6 +392,7 @@ document.addEventListener("DOMContentLoaded", () => {
     failBanner.classList.add("fail");
     failBanner.innerHTML = `Unlucky! The answer was ${targetPlayer.name} <span class="banner-sub">Better luck tomorrow ⚽</span>`;
     failBanner.classList.add("show");
+    document.getElementById("current-header").textContent = "TODAY'S PLAYER";
 
     showShareToast(`Out of guesses! The player was ${targetPlayer.name}.`);
     markGameComplete('loss');
