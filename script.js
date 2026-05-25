@@ -352,24 +352,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const toast = document.getElementById("share-toast");
     const text = document.getElementById("share-toast-text");
 
-    // Show emoji grid as text, with guessi.app as a tappable link below
-    const lines = message.split("\n");
-    const urlLine = lines[lines.length - 1]; // "guessi.app"
-    const gridLines = lines.slice(0, -1).join("\n");
-    text.textContent = gridLines;
-
-    // Add tappable link
-    const existingLink = toast.querySelector(".toast-link");
-    if (existingLink) existingLink.remove();
-    const link = document.createElement("a");
-    link.href = "https://guessi.app";
-    link.textContent = urlLine;
-    link.className = "toast-link";
-    link.target = "_blank";
-    link.rel = "noopener";
-    link.onclick = function(e) { e.stopPropagation(); };
-    toast.appendChild(link);
-
+    text.textContent = message;
     toast.classList.remove("hidden");
     setTimeout(() => toast.classList.add("show"), 10);
 
