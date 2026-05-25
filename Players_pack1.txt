@@ -1,0 +1,1002 @@
+window.players = [
+  {
+    "name": "Lionel Messi",
+    "clubs": ["Barcelona", "PSG", "Inter Miami"],
+    "leagues": ["La Liga", "Ligue 1", "MLS"],
+    "nationality": "Argentina",
+    "positions": ["RW", "ST", "CAM"],
+    "YearOfBirth": 1987,
+    "strongFoot": "left",
+    "status": "current"
+  },
+  {
+    "name": "Cristiano Ronaldo",
+    "clubs": ["Sporting CP", "Manchester United", "Real Madrid", "Juventus", "Al Nassr"],
+    "leagues": ["Primeira Liga", "Premier League", "La Liga", "Serie A", "Saudi Pro League"],
+    "nationality": "Portugal",
+    "positions": ["ST", "LW"],
+    "YearOfBirth": 1985,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Neymar",
+    "clubs": ["Santos", "Barcelona", "PSG", "Al Hilal"],
+    "leagues": ["Brasileirao", "La Liga", "Ligue 1", "Saudi Pro League"],
+    "nationality": "Brazil",
+    "positions": ["LW", "CAM"],
+    "YearOfBirth": 1992,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Kylian Mbappe",
+    "clubs": ["Monaco", "PSG", "Real Madrid"],
+    "leagues": ["Ligue 1", "La Liga"],
+    "nationality": "France",
+    "positions": ["LW", "ST"],
+    "YearOfBirth": 1998,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Erling Haaland",
+    "clubs": ["Bryne", "Molde", "RB Salzburg", "Borussia Dortmund", "Manchester City"],
+    "leagues": ["Eliteserien", "Austrian Bundesliga", "Bundesliga", "Premier League"],
+    "nationality": "Norway",
+    "positions": ["ST"],
+    "YearOfBirth": 2000,
+    "strongFoot": "left",
+    "status": "current"
+  },
+  {
+    "name": "Zinedine Zidane",
+    "clubs": ["Cannes", "Bordeaux", "Juventus", "Real Madrid"],
+    "leagues": ["Ligue 1", "Serie A", "La Liga"],
+    "nationality": "France",
+    "positions": ["CAM", "CM"],
+    "YearOfBirth": 1972,
+    "strongFoot": "right",
+    "status": "retired"
+  },
+  {
+    "name": "Ronaldinho",
+    "clubs": ["Gremio", "PSG", "Barcelona", "AC Milan", "Flamengo", "Atletico Mineiro", "Queretaro", "Fluminense"],
+    "leagues": ["Brasileirao", "Ligue 1", "La Liga", "Serie A", "Liga MX"],
+    "nationality": "Brazil",
+    "positions": ["CAM", "LW"],
+    "YearOfBirth": 1980,
+    "strongFoot": "right",
+    "status": "retired"
+  },
+  {
+    "name": "Thierry Henry",
+    "clubs": ["Monaco", "Juventus", "Arsenal", "Barcelona", "New York Red Bulls"],
+    "leagues": ["Ligue 1", "Serie A", "Premier League", "La Liga", "MLS"],
+    "nationality": "France",
+    "positions": ["ST", "LW"],
+    "YearOfBirth": 1977,
+    "strongFoot": "right",
+    "status": "retired"
+  },
+  {
+    "name": "David Beckham",
+    "clubs": ["Manchester United", "Preston North End (loan)", "Real Madrid", "LA Galaxy", "AC Milan (loan)", "PSG"],
+    "leagues": ["Premier League", "English League One", "La Liga", "MLS", "Serie A", "Ligue 1"],
+    "nationality": "England",
+    "positions": ["RM", "CM"],
+    "YearOfBirth": 1975,
+    "strongFoot": "right",
+    "status": "retired"
+  },
+  {
+    "name": "Andres Iniesta",
+    "clubs": ["Barcelona", "Vissel Kobe", "Emirates Club"],
+    "leagues": ["La Liga", "J1 League", "UAE Pro League"],
+    "nationality": "Spain",
+    "positions": ["CM", "CAM"],
+    "YearOfBirth": 1984,
+    "strongFoot": "right",
+    "status": "retired"
+  },
+  {
+    "name": "Xavi Hernandez",
+    "clubs": ["Barcelona", "Al Sadd"],
+    "leagues": ["La Liga", "Qatar Stars League"],
+    "nationality": "Spain",
+    "positions": ["CM", "CDM"],
+    "YearOfBirth": 1980,
+    "strongFoot": "right",
+    "status": "retired"
+  },
+  {
+    "name": "Luka Modric",
+    "clubs": ["Dinamo Zagreb", "Zrinjski (loan)", "NK Inter Zapresic (loan)", "Tottenham Hotspur", "Real Madrid", "AC Milan"],
+    "leagues": ["HNL", "Premier Liga BiH", "Premier League", "La Liga", "Serie A"],
+    "nationality": "Croatia",
+    "positions": ["CM", "CDM", "CAM"],
+    "YearOfBirth": 1985,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Karim Benzema",
+    "clubs": ["Lyon", "Real Madrid", "Al Ittihad", "Al Hilal"],
+    "leagues": ["Ligue 1", "La Liga", "Saudi Pro League"],
+    "nationality": "France",
+    "positions": ["ST", "CF"],
+    "YearOfBirth": 1987,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Robert Lewandowski",
+    "clubs": ["Delta Warsaw", "Znicz Pruszkow", "Lech Poznan", "Borussia Dortmund", "Bayern Munich", "Barcelona"],
+    "leagues": ["Ekstraklasa", "Bundesliga", "La Liga"],
+    "nationality": "Poland",
+    "positions": ["ST"],
+    "YearOfBirth": 1988,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Luis Suarez",
+    "clubs": ["Nacional", "Groningen", "Ajax", "Liverpool", "Barcelona", "Atletico Madrid", "Gremio", "Inter Miami"],
+    "leagues": ["Liga AUF Uruguaya", "Eredivisie", "Premier League", "La Liga", "Brasileirao", "MLS"],
+    "nationality": "Uruguay",
+    "positions": ["ST"],
+    "YearOfBirth": 1987,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Sergio Ramos",
+    "clubs": ["Sevilla", "Real Madrid", "PSG", "Monterrey"],
+    "leagues": ["La Liga", "Ligue 1", "Liga MX"],
+    "nationality": "Spain",
+    "positions": ["CB", "RB"],
+    "YearOfBirth": 1986,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Gerard Pique",
+    "clubs": ["Manchester United", "Real Zaragoza (loan)", "Barcelona"],
+    "leagues": ["Premier League", "La Liga"],
+    "nationality": "Spain",
+    "positions": ["CB"],
+    "YearOfBirth": 1987,
+    "strongFoot": "right",
+    "status": "retired"
+  },
+  {
+    "name": "Iker Casillas",
+    "clubs": ["Real Madrid", "Porto"],
+    "leagues": ["La Liga", "Primeira Liga"],
+    "nationality": "Spain",
+    "positions": ["GK"],
+    "YearOfBirth": 1981,
+    "strongFoot": "right",
+    "status": "retired"
+  },
+  {
+    "name": "Gianluigi Buffon",
+    "clubs": ["Parma", "Juventus", "PSG"],
+    "leagues": ["Serie A", "Ligue 1"],
+    "nationality": "Italy",
+    "positions": ["GK"],
+    "YearOfBirth": 1978,
+    "strongFoot": "right",
+    "status": "retired"
+  },
+  {
+    "name": "Manuel Neuer",
+    "clubs": ["Schalke", "Bayern Munich"],
+    "leagues": ["Bundesliga"],
+    "nationality": "Germany",
+    "positions": ["GK"],
+    "YearOfBirth": 1986,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Virgil van Dijk",
+    "clubs": ["Groningen", "Celtic", "Southampton", "Liverpool"],
+    "leagues": ["Eredivisie", "Scottish Premiership", "Premier League"],
+    "nationality": "Netherlands",
+    "positions": ["CB"],
+    "YearOfBirth": 1991,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Mohamed Salah",
+    "clubs": ["El Mokawloon", "Basel", "Chelsea", "Fiorentina (loan)", "Roma", "Liverpool"],
+    "leagues": ["Egyptian Premier League", "Swiss Super League", "Premier League", "Serie A"],
+    "nationality": "Egypt",
+    "positions": ["RW", "ST"],
+    "YearOfBirth": 1992,
+    "strongFoot": "left",
+    "status": "current"
+  },
+  {
+    "name": "Sadio Mane",
+    "clubs": ["Metz", "Red Bull Salzburg", "Southampton", "Liverpool", "Bayern Munich", "Al Nassr"],
+    "leagues": ["Ligue 2", "Austrian Bundesliga", "Premier League", "Bundesliga", "Saudi Pro League"],
+    "nationality": "Senegal",
+    "positions": ["LW", "ST"],
+    "YearOfBirth": 1992,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Kevin De Bruyne",
+    "clubs": ["Genk", "Chelsea", "Werder Bremen (loan)", "Wolfsburg", "Manchester City", "Napoli"],
+    "leagues": ["Belgian Pro League", "Premier League", "Bundesliga", "Serie A"],
+    "nationality": "Belgium",
+    "positions": ["CAM", "CM"],
+    "YearOfBirth": 1991,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Eden Hazard",
+    "clubs": ["Lille", "Chelsea", "Real Madrid"],
+    "leagues": ["Ligue 1", "Premier League", "La Liga"],
+    "nationality": "Belgium",
+    "positions": ["LW", "CAM"],
+    "YearOfBirth": 1991,
+    "strongFoot": "right",
+    "status": "retired"
+  },
+  {
+    "name": "Gareth Bale",
+    "clubs": ["Southampton", "Tottenham Hotspur", "Real Madrid", "LAFC"],
+    "leagues": ["Premier League", "La Liga", "MLS"],
+    "nationality": "Wales",
+    "positions": ["RW", "ST"],
+    "YearOfBirth": 1989,
+    "strongFoot": "left",
+    "status": "retired"
+  },
+  {
+    "name": "Didier Drogba",
+    "clubs": ["Le Mans", "Guingamp", "Marseille", "Chelsea", "Shanghai Shenhua", "Galatasaray", "Montreal Impact", "Phoenix Rising"],
+    "leagues": ["Ligue 1", "Premier League", "Chinese Super League", "Turkish Super Lig", "MLS"],
+    "nationality": "Ivory Coast",
+    "positions": ["ST"],
+    "YearOfBirth": 1978,
+    "strongFoot": "right",
+    "status": "retired"
+  },
+  {
+    "name": "Frank Lampard",
+    "clubs": ["West Ham", "Swansea City (loan)", "Chelsea", "Manchester City", "New York City FC"],
+    "leagues": ["Premier League", "Championship", "MLS"],
+    "nationality": "England",
+    "positions": ["CM", "CAM"],
+    "YearOfBirth": 1978,
+    "strongFoot": "right",
+    "status": "retired"
+  },
+  {
+    "name": "Steven Gerrard",
+    "clubs": ["Liverpool", "LA Galaxy"],
+    "leagues": ["Premier League", "MLS"],
+    "nationality": "England",
+    "positions": ["CM", "CDM"],
+    "YearOfBirth": 1980,
+    "strongFoot": "right",
+    "status": "retired"
+  },
+  {
+    "name": "Paul Scholes",
+    "clubs": ["Manchester United"],
+    "leagues": ["Premier League"],
+    "nationality": "England",
+    "positions": ["CM", "CAM"],
+    "YearOfBirth": 1974,
+    "strongFoot": "right",
+    "status": "retired"
+  },
+  {
+    "name": "Xabi Alonso",
+    "clubs": ["Real Sociedad", "Eibar (loan)", "Liverpool", "Real Madrid", "Bayern Munich"],
+    "leagues": ["La Liga", "Segunda División", "Premier League", "Bundesliga"],
+    "nationality": "Spain",
+    "positions": ["CM", "CDM"],
+    "YearOfBirth": 1981,
+    "strongFoot": "right",
+    "status": "retired"
+  },
+  {
+    "name": "Andriy Shevchenko",
+    "clubs": ["Dynamo Kyiv", "AC Milan", "Chelsea", "Dynamo Kyiv"],
+    "leagues": ["Ukrainian Premier League", "Serie A", "Premier League"],
+    "nationality": "Ukraine",
+    "positions": ["ST"],
+    "YearOfBirth": 1976,
+    "strongFoot": "right",
+    "status": "retired"
+  },
+  {
+    "name": "Samuel Eto'o",
+    "clubs": ["Real Madrid", "Leganes (loan)", "Espanyol (loan)", "Mallorca", "Barcelona", "Inter Milan", "Anzhi Makhachkala", "Chelsea", "Everton", "Sampdoria", "Antalyaspor", "Konyaspor", "Qatar SC"],
+    "leagues": ["La Liga", "Serie A", "Russian Premier League", "Premier League", "Turkish Super Lig", "Qatar Stars League"],
+    "nationality": "Cameroon",
+    "positions": ["ST", "RW"],
+    "YearOfBirth": 1981,
+    "strongFoot": "right",
+    "status": "retired"
+  },
+  {
+    "name": "Carlos Puyol",
+    "clubs": ["Barcelona"],
+    "leagues": ["La Liga"],
+    "nationality": "Spain",
+    "positions": ["CB", "RB"],
+    "YearOfBirth": 1978,
+    "strongFoot": "right",
+    "status": "retired"
+  },
+  {
+    "name": "Philipp Lahm",
+    "clubs": ["Bayern Munich", "Stuttgart (loan)"],
+    "leagues": ["Bundesliga"],
+    "nationality": "Germany",
+    "positions": ["RB", "LB", "CDM"],
+    "YearOfBirth": 1983,
+    "strongFoot": "right",
+    "status": "retired"
+  },
+  {
+    "name": "Arjen Robben",
+    "clubs": ["Groningen", "PSV", "Chelsea", "Real Madrid", "Bayern Munich"],
+    "leagues": ["Eredivisie", "Premier League", "La Liga", "Bundesliga"],
+    "nationality": "Netherlands",
+    "positions": ["RW"],
+    "YearOfBirth": 1984,
+    "strongFoot": "left",
+    "status": "retired"
+  },
+  {
+    "name": "Franck Ribery",
+    "clubs": ["Boulogne", "Ales", "Brest", "Metz", "Galatasaray", "Marseille", "Bayern Munich", "Fiorentina", "Salernitana"],
+    "leagues": ["Turkish Super Lig", "Ligue 1", "Bundesliga", "Serie A"],
+    "nationality": "France",
+    "positions": ["LW", "RW"],
+    "YearOfBirth": 1983,
+    "strongFoot": "right",
+    "status": "retired"
+  },
+  {
+    "name": "Kaka",
+    "clubs": ["Sao Paulo", "AC Milan", "Real Madrid", "Orlando City"],
+    "leagues": ["Brasileirao", "Serie A", "La Liga", "MLS"],
+    "nationality": "Brazil",
+    "positions": ["CAM"],
+    "YearOfBirth": 1982,
+    "strongFoot": "right",
+    "status": "retired"
+  },
+  {
+    "name": "Rivaldo",
+    "clubs": ["Santa Cruz", "Mogi Mirim", "Corinthians (loan)", "Palmeiras", "Deportivo La Coruna", "Barcelona", "AC Milan", "Cruzeiro", "Olympiacos", "AEK Athens", "Bunyodkor", "Sao Paulo", "Kabuscorp", "Sao Caetano Futebol"],
+    "leagues": ["Brasileirao", "La Liga", "Serie A", "Greek Super League", "Uzbek Super League", "Girabola", "Brasileirao Serie B"],
+    "nationality": "Brazil",
+    "positions": ["CAM", "LW"],
+    "YearOfBirth": 1972,
+    "strongFoot": "left",
+    "status": "retired"
+  },
+  {
+    "name": "Wayne Rooney",
+    "clubs": ["Everton", "Manchester United", "DC United", "Derby County"],
+    "leagues": ["Premier League", "MLS", "Championship"],
+    "nationality": "England",
+    "positions": ["ST", "CAM"],
+    "YearOfBirth": 1985,
+    "strongFoot": "right",
+    "status": "retired"
+  },
+  {
+    "name": "Zlatan Ibrahimovic",
+    "clubs": ["Malmo FF", "Ajax", "Juventus", "Inter Milan", "Barcelona", "AC Milan", "PSG", "Manchester United", "LA Galaxy"],
+    "leagues": ["Allsvenskan", "Eredivisie", "Serie A", "La Liga", "Ligue 1", "Premier League", "MLS"],
+    "nationality": "Sweden",
+    "positions": ["ST"],
+    "YearOfBirth": 1981,
+    "strongFoot": "right",
+    "status": "retired"
+  },
+  {
+    "name": "David Villa",
+    "clubs": ["Sporting Gijon", "Real Zaragoza", "Valencia", "Barcelona", "Atletico Madrid", "New York City FC", "Melbourne City (loan)", "Vissel Kobe"],
+    "leagues": ["La Liga", "MLS", "A-League", "J1 League"],
+    "nationality": "Spain",
+    "positions": ["ST", "LW"],
+    "YearOfBirth": 1981,
+    "strongFoot": "right",
+    "status": "retired"
+  },
+  {
+    "name": "Fernando Torres",
+    "clubs": ["Atletico Madrid", "Liverpool", "Chelsea", "AC Milan", "Atletico Madrid", "Sagan Tosu"],
+    "leagues": ["La Liga", "Premier League", "Serie A", "J1 League"],
+    "nationality": "Spain",
+    "positions": ["ST"],
+    "YearOfBirth": 1984,
+    "strongFoot": "right",
+    "status": "retired"
+  },
+  {
+    "name": "Sergio Aguero",
+    "clubs": ["Independiente", "Atletico Madrid", "Manchester City", "Barcelona"],
+    "leagues": ["Argentine Primera División", "La Liga", "Premier League"],
+    "nationality": "Argentina",
+    "positions": ["ST"],
+    "YearOfBirth": 1988,
+    "strongFoot": "right",
+    "status": "retired"
+  },
+  {
+    "name": "Angel Di Maria",
+    "clubs": ["Rosario Central", "Benfica", "Real Madrid", "Manchester United", "PSG", "Juventus", "Benfica"],
+    "leagues": ["Argentine Primera División", "Primeira Liga", "La Liga", "Premier League", "Ligue 1", "Serie A"],
+    "nationality": "Argentina",
+    "positions": ["RW", "LW", "CAM"],
+    "YearOfBirth": 1988,
+    "strongFoot": "left",
+    "status": "current"
+  },
+  {
+    "name": "Mesut Ozil",
+    "clubs": ["Schalke", "Werder Bremen", "Real Madrid", "Arsenal", "Fenerbahce", "Istanbul Basaksehir"],
+    "leagues": ["Bundesliga", "La Liga", "Premier League", "Turkish Super Lig"],
+    "nationality": "Germany",
+    "positions": ["CAM"],
+    "YearOfBirth": 1988,
+    "strongFoot": "left",
+    "status": "retired"
+  },
+  {
+    "name": "Toni Kroos",
+    "clubs": ["Bayern Munich", "Bayer Leverkusen (loan)", "Real Madrid"],
+    "leagues": ["Bundesliga", "La Liga"],
+    "nationality": "Germany",
+    "positions": ["CM", "CDM"],
+    "YearOfBirth": 1990,
+    "strongFoot": "right",
+    "status": "retired"
+  },
+  {
+    "name": "Marco Reus",
+    "clubs": ["Rot Weiss Ahlen", "Borussia Monchengladbach", "Borussia Dortmund", "LA Galaxy"],
+    "leagues": ["Bundesliga", "MLS"],
+    "nationality": "Germany",
+    "positions": ["CAM", "LW", "RW"],
+    "YearOfBirth": 1989,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Thomas Muller",
+    "clubs": ["Bayern Munich", "Vancouver Whitecaps"],
+    "leagues": ["Bundesliga", "MLS"],
+    "nationality": "Germany",
+    "positions": ["CAM", "RW", "ST"],
+    "YearOfBirth": 1989,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Bastian Schweinsteiger",
+    "clubs": ["Bayern Munich", "Manchester United", "Chicago Fire"],
+    "leagues": ["Bundesliga", "Premier League", "MLS"],
+    "nationality": "Germany",
+    "positions": ["CM", "CDM"],
+    "YearOfBirth": 1984,
+    "strongFoot": "right",
+    "status": "retired"
+  },
+  {
+    "name": "Petr Cech",
+    "clubs": ["Chmel Blsany", "Sparta Prague", "Rennes", "Chelsea", "Arsenal"],
+    "leagues": ["Czech First League", "Ligue 1", "Premier League"],
+    "nationality": "Czech Republic",
+    "positions": ["GK"],
+    "YearOfBirth": 1982,
+    "strongFoot": "left",
+    "status": "retired"
+  },
+  {
+    "name": "Jan Oblak",
+    "clubs": ["Olimpija Ljubljana", "Benfica", "Beira-Mar (loan)", "Uniao de Leiria (loan)", "Rio Ave (loan)", "Atletico Madrid"],
+    "leagues": ["Slovenian PrvaLiga", "Primeira Liga", "La Liga"],
+    "nationality": "Slovenia",
+    "positions": ["GK"],
+    "YearOfBirth": 1993,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Thibaut Courtois",
+    "clubs": ["Genk", "Chelsea", "Atletico Madrid (loan)", "Real Madrid"],
+    "leagues": ["Belgian Pro League", "Premier League", "La Liga"],
+    "nationality": "Belgium",
+    "positions": ["GK"],
+    "YearOfBirth": 1992,
+    "strongFoot": "left",
+    "status": "current"
+  },
+  {
+    "name": "Marc-Andre ter Stegen",
+    "clubs": ["Borussia Monchengladbach", "Barcelona", "Girona (loan)"],
+    "leagues": ["Bundesliga", "La Liga", "Serie A"],
+    "nationality": "Germany",
+    "positions": ["GK"],
+    "YearOfBirth": 1992,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Jordi Alba",
+    "clubs": ["Cornella", "Gimnastic", "Valencia", "Barcelona", "Inter Miami"],
+    "leagues": ["La Liga", "Segunda División", "MLS"],
+    "nationality": "Spain",
+    "positions": ["LB"],
+    "YearOfBirth": 1989,
+    "strongFoot": "left",
+    "status": "retired"
+  },
+  {
+    "name": "Dani Alves",
+    "clubs": ["Bahia", "Sevilla", "Barcelona", "Juventus", "PSG", "Sao Paulo", "Barcelona", "UNAM"],
+    "leagues": ["Brasileirao", "La Liga", "Serie A", "Ligue 1", "Liga MX"],
+    "nationality": "Brazil",
+    "positions": ["RB"],
+    "YearOfBirth": 1983,
+    "strongFoot": "right",
+    "status": "retired"
+  },
+  {
+    "name": "Joao Cancelo",
+    "clubs": ["Benfica", "Valencia", "Inter Milan (loan)", "Juventus", "Manchester City", "Bayern Munich (loan)", "Barcelona (loan)", "Al Hilal"],
+    "leagues": ["Primeira Liga", "La Liga", "Serie A", "Premier League", "Bundesliga", "Saudi Pro League"],
+    "nationality": "Portugal",
+    "positions": ["RB", "LB"],
+    "YearOfBirth": 1994,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Kyle Walker",
+    "clubs": ["Sheffield United", "Northampton Town (loan)", "Queens Park Rangers (loan)", "Aston Villa (loan)", "Tottenham Hotspur", "Manchester City", "Burnley"],
+    "leagues": ["Premier League", "Championship"],
+    "nationality": "England",
+    "positions": ["RB", "CB"],
+    "YearOfBirth": 1990,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Raphael Varane",
+    "clubs": ["Lens", "Real Madrid", "Manchester United", "Como"],
+    "leagues": ["Ligue 1", "La Liga", "Premier League", "Serie A"],
+    "nationality": "France",
+    "positions": ["CB"],
+    "YearOfBirth": 1993,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Kalidou Koulibaly",
+    "clubs": ["Metz", "Genk", "Napoli", "Chelsea", "Al Hilal"],
+    "leagues": ["Ligue 2", "Belgian Pro League", "Serie A", "Premier League", "Saudi Pro League"],
+    "nationality": "Senegal",
+    "positions": ["CB"],
+    "YearOfBirth": 1991,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Vinicius Junior",
+    "clubs": ["Flamengo", "Real Madrid"],
+    "leagues": ["Brasileirao", "La Liga"],
+    "nationality": "Brazil",
+    "positions": ["LW", "RW"],
+    "YearOfBirth": 2000,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Rodrygo",
+    "clubs": ["Santos", "Real Madrid"],
+    "leagues": ["Brasileirao", "La Liga"],
+    "nationality": "Brazil",
+    "positions": ["RW", "LW", "ST"],
+    "YearOfBirth": 2001,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Jude Bellingham",
+    "clubs": ["Birmingham City", "Borussia Dortmund", "Real Madrid"],
+    "leagues": ["Championship", "Bundesliga", "La Liga"],
+    "nationality": "England",
+    "positions": ["CM", "CAM"],
+    "YearOfBirth": 2003,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Pedri",
+    "clubs": ["Las Palmas", "Barcelona"],
+    "leagues": ["La Liga"],
+    "nationality": "Spain",
+    "positions": ["CM", "CAM"],
+    "YearOfBirth": 2002,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Gavi",
+    "clubs": ["Barcelona"],
+    "leagues": ["La Liga"],
+    "nationality": "Spain",
+    "positions": ["CM", "CAM"],
+    "YearOfBirth": 2004,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Frenkie de Jong",
+    "clubs": ["Willem II", "Ajax", "Barcelona"],
+    "leagues": ["Eredivisie", "La Liga"],
+    "nationality": "Netherlands",
+    "positions": ["CM", "CDM"],
+    "YearOfBirth": 1997,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Lautaro Martinez",
+    "clubs": ["Racing Club", "Inter Milan"],
+    "leagues": ["Argentine Primera División", "Serie A"],
+    "nationality": "Argentina",
+    "positions": ["ST"],
+    "YearOfBirth": 1997,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Rafael Leao",
+    "clubs": ["Sporting CP", "Lille", "AC Milan"],
+    "leagues": ["Primeira Liga", "Ligue 1", "Serie A"],
+    "nationality": "Portugal",
+    "positions": ["LW", "ST"],
+    "YearOfBirth": 1999,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Bukayo Saka",
+    "clubs": ["Arsenal"],
+    "leagues": ["Premier League"],
+    "nationality": "England",
+    "positions": ["RW", "LW", "LB"],
+    "YearOfBirth": 2001,
+    "strongFoot": "left",
+    "status": "current"
+  },
+  {
+    "name": "Declan Rice",
+    "clubs": ["West Ham United", "Arsenal"],
+    "leagues": ["Premier League"],
+    "nationality": "England",
+    "positions": ["CDM", "CM"],
+    "YearOfBirth": 1999,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Harry Kane",
+    "clubs": ["Tottenham Hotspur", "Leyton Orient (loan)", "Millwall (loan)", "Norwich City (loan)", "Leicester City (loan)", "Bayern Munich"],
+    "leagues": ["Premier League", "Championship", "Bundesliga"],
+    "nationality": "England",
+    "positions": ["ST"],
+    "YearOfBirth": 1993,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Son Heung-min",
+    "clubs": ["Hamburg", "Bayer Leverkusen", "Tottenham Hotspur", "LAFC"],
+    "leagues": ["Bundesliga", "Premier League", "MLS"],
+    "nationality": "South Korea",
+    "positions": ["LW", "RW", "ST"],
+    "YearOfBirth": 1992,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "James Maddison",
+    "clubs": ["Coventry City", "Aberdeen (loan)", "Norwich City", "Leicester City", "Tottenham Hotspur"],
+    "leagues": ["Championship", "Scottish Premiership", "Premier League"],
+    "nationality": "England",
+    "positions": ["CAM", "CM"],
+    "YearOfBirth": 1996,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Bruno Fernandes",
+    "clubs": ["Novara", "Udinese", "Sampdoria", "Sporting CP", "Manchester United"],
+    "leagues": ["Serie A", "Primeira Liga", "Premier League"],
+    "nationality": "Portugal",
+    "positions": ["CAM", "CM"],
+    "YearOfBirth": 1994,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Casemiro",
+    "clubs": ["Sao Paulo", "Real Madrid", "Porto (loan)", "Manchester United"],
+    "leagues": ["Brasileirao", "La Liga", "Primeira Liga", "Premier League"],
+    "nationality": "Brazil",
+    "positions": ["CDM", "CM"],
+    "YearOfBirth": 1992,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Marcus Rashford",
+    "clubs": ["Manchester United", "Aston Villa (loan)", "Barcelona (loan)"],
+    "leagues": ["Premier League", "La Liga"],
+    "nationality": "England",
+    "positions": ["LW", "ST"],
+    "YearOfBirth": 1997,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Jadon Sancho",
+    "clubs": ["Borussia Dortmund", "Manchester United", "Chelsea (loan)", "Aston Villa (loan)"],
+    "leagues": ["Bundesliga", "Premier League"],
+    "nationality": "England",
+    "positions": ["RW", "LW"],
+    "YearOfBirth": 2000,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Erik ten Hag",
+    "clubs": ["Twente", "De Graafschap", "RKC Waalwijk", "Utrecht"],
+    "leagues": ["Eredivisie"],
+    "nationality": "Netherlands",
+    "positions": ["CB"],
+    "YearOfBirth": 1970,
+    "strongFoot": "right",
+    "status": "retired"
+  },
+  {
+    "name": "Joao Felix",
+    "clubs": ["Benfica", "Atletico Madrid", "Chelsea (loan)", "Barcelona (loan)", "AC Milan (loan)", "Al Nassr"],
+    "leagues": ["Primeira Liga", "La Liga", "Premier League", "Serie A", "Saudi Pro League"],
+    "nationality": "Portugal",
+    "positions": ["CF", "LW", "CAM"],
+    "YearOfBirth": 1999,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Antoine Griezmann",
+    "clubs": ["Real Sociedad", "Atletico Madrid", "Barcelona"],
+    "leagues": ["La Liga"],
+    "nationality": "France",
+    "positions": ["ST", "CF", "LW"],
+    "YearOfBirth": 1991,
+    "strongFoot": "left",
+    "status": "current"
+  },
+  {
+    "name": "Karim Adeyemi",
+    "clubs": ["Red Bull Salzburg", "Borussia Dortmund"],
+    "leagues": ["Austrian Bundesliga", "Bundesliga"],
+    "nationality": "Germany",
+    "positions": ["RW", "ST", "LW"],
+    "YearOfBirth": 2002,
+    "strongFoot": "left",
+    "status": "current"
+  },
+  {
+    "name": "Jamal Musiala",
+    "clubs": ["Bayern Munich"],
+    "leagues": ["Bundesliga"],
+    "nationality": "Germany",
+    "positions": ["CAM", "LW", "CM"],
+    "YearOfBirth": 2003,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Kai Havertz",
+    "clubs": ["Bayer Leverkusen", "Chelsea", "Arsenal"],
+    "leagues": ["Bundesliga", "Premier League"],
+    "nationality": "Germany",
+    "positions": ["CAM", "ST", "CM"],
+    "YearOfBirth": 1999,
+    "strongFoot": "left",
+    "status": "current"
+  },
+  {
+    "name": "Ilkay Gundogan",
+    "clubs": ["VfL Bochum", "Nurnberg", "Borussia Dortmund", "Manchester City", "Barcelona", "Galatasaray"],
+    "leagues": ["Bundesliga", "Premier League", "La Liga", "Turkish Super Lig"],
+    "nationality": "Germany",
+    "positions": ["CM"],
+    "YearOfBirth": 1990,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Rodri",
+    "clubs": ["Villarreal", "Atletico Madrid", "Manchester City"],
+    "leagues": ["La Liga", "Premier League"],
+    "nationality": "Spain",
+    "positions": ["CDM", "CM"],
+    "YearOfBirth": 1996,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Bernardo Silva",
+    "clubs": ["Benfica", "Monaco", "Manchester City"],
+    "leagues": ["Primeira Liga", "Ligue 1", "Premier League"],
+    "nationality": "Portugal",
+    "positions": ["RW", "CAM", "CM"],
+    "YearOfBirth": 1994,
+    "strongFoot": "left",
+    "status": "current"
+  },
+  {
+    "name": "Riyad Mahrez",
+    "clubs": ["Le Havre", "Leicester City", "Manchester City", "Al Ahli"],
+    "leagues": ["Ligue 2", "Premier League", "Saudi Pro League"],
+    "nationality": "Algeria",
+    "positions": ["RW"],
+    "YearOfBirth": 1991,
+    "strongFoot": "left",
+    "status": "current"
+  },
+  {
+    "name": "Ederson",
+    "clubs": ["Ribeirao", "Rio Ave", "Benfica", "Manchester City", "Fenerbahce"],
+    "leagues": ["Primeira Liga", "Premier League", "Turkish Super Lig"],
+    "nationality": "Brazil",
+    "positions": ["GK"],
+    "YearOfBirth": 1993,
+    "strongFoot": "left",
+    "status": "current"
+  },
+  {
+    "name": "Alisson Becker",
+    "clubs": ["Internacional", "Roma", "Liverpool"],
+    "leagues": ["Brasileirao", "Serie A", "Premier League"],
+    "nationality": "Brazil",
+    "positions": ["GK"],
+    "YearOfBirth": 1992,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Trent Alexander-Arnold",
+    "clubs": ["Liverpool", "Real Madrid"],
+    "leagues": ["Premier League", "La Liga"],
+    "nationality": "England",
+    "positions": ["RB", "CM"],
+    "YearOfBirth": 1998,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Ousmane Dembele",
+    "clubs": ["Rennes", "Borussia Dortmund", "Barcelona", "PSG"],
+    "leagues": ["Ligue 1", "Bundesliga", "La Liga"],
+    "nationality": "France",
+    "positions": ["RW", "LW"],
+    "YearOfBirth": 1997,
+    "strongFoot": "left",
+    "status": "current"
+  },
+  {
+    "name": "Edinson Cavani",
+    "clubs": ["Danubio", "Palermo", "Napoli", "PSG", "Manchester United", "Valencia", "Boca Juniors"],
+    "leagues": ["Liga AUF Uruguaya", "Serie A", "Ligue 1", "Premier League", "La Liga", "Argentine Primera División"],
+    "nationality": "Uruguay",
+    "positions": ["ST"],
+    "YearOfBirth": 1987,
+    "strongFoot": "right",
+    "status": "retired"
+  },
+  {
+    "name": "Paulo Dybala",
+    "clubs": ["Instituto", "Palermo", "Juventus", "Roma"],
+    "leagues": ["Argentine Primera División", "Serie A"],
+    "nationality": "Argentina",
+    "positions": ["CF", "CAM", "RW"],
+    "YearOfBirth": 1993,
+    "strongFoot": "left",
+    "status": "current"
+  },
+  {
+    "name": "Federico Valverde",
+    "clubs": ["Penarol", "Deportivo La Coruna (loan)", "Real Madrid"],
+    "leagues": ["Liga AUF Uruguaya", "Segunda División", "La Liga"],
+    "nationality": "Uruguay",
+    "positions": ["CM", "RW", "CDM", "RB"],
+    "YearOfBirth": 1998,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Achraf Hakimi",
+    "clubs": ["Real Madrid", "Borussia Dortmund (loan)", "Inter Milan", "PSG"],
+    "leagues": ["La Liga", "Bundesliga", "Serie A", "Ligue 1"],
+    "nationality": "Morocco",
+    "positions": ["RB", "RWB", "LB"],
+    "YearOfBirth": 1998,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Theo Hernandez",
+    "clubs": ["Alaves (loan)", "Real Madrid", "Real Sociedad (loan)", "AC Milan", "Al Hilal"],
+    "leagues": ["La Liga", "Serie A", "Saudi Pro League"],
+    "nationality": "France",
+    "positions": ["LB", "LWB"],
+    "YearOfBirth": 1997,
+    "strongFoot": "left",
+    "status": "current"
+  },
+  {
+    "name": "Milan Skriniar",
+    "clubs": ["Zilina", "Sampdoria", "Inter Milan", "PSG", "Fenerbahce"],
+    "leagues": ["Slovak Super Liga", "Serie A", "Ligue 1", "Turkish Super Lig"],
+    "nationality": "Slovakia",
+    "positions": ["CB"],
+    "YearOfBirth": 1995,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Victor Osimhen",
+    "clubs": ["Wolfsburg", "Charleroi", "Lille", "Napoli", "Galatasaray"],
+    "leagues": ["Bundesliga", "Belgian Pro League", "Ligue 1", "Serie A", "Turkish Super Lig"],
+    "nationality": "Nigeria",
+    "positions": ["ST"],
+    "YearOfBirth": 1998,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Khvicha Kvaratskhelia",
+    "clubs": ["Dinamo Tbilisi", "Rustavi", "Lokomotiv Moscow", "Rubin Kazan", "Dinamo Batumi", "Napoli", "PSG"],
+    "leagues": ["Erovnuli Liga", "Russian Premier League", "Serie A", "Ligue 1"],
+    "nationality": "Georgia",
+    "positions": ["LW"],
+    "YearOfBirth": 2001,
+    "strongFoot": "right",
+    "status": "current"
+  },
+  {
+    "name": "Ruud Gullit",
+    "clubs": ["Haarlem", "Feyenoord", "PSV", "AC Milan", "Sampdoria", "Chelsea"],
+    "leagues": ["Eredivisie", "Serie A", "Premier League"],
+    "nationality": "Netherlands",
+    "positions": ["CAM", "CM", "CF"],
+    "YearOfBirth": 1962,
+    "strongFoot": "right",
+    "status": "retired"
+  }
+]

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' http://127.0.0.1:* http://localhost:*; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self';">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guessi</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Changa:wght@600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <!-- Game over overlay and banner (top level so nothing can cover them) -->
+  <div id="game-over-overlay" class="hidden"></div>
+  <div id="game-over-banner" class="hidden">Game Over!</div>
+
+  <!-- Share toast and rolling ball (top level so they render above everything) -->
+  <div id="share-toast" class="share-toast hidden">
+    <span id="share-toast-text"></span>
+    <div class="share-toast-sub">Tap to share</div>
+  </div>
+  <div id="rolling-ball" class="rolling-ball hidden">⚽</div>
+
+  <div class="app-shell">
+
+    <!-- HEADER -->
+    <header class="db-header">
+
+      <div class="db-header-side"></div>
+
+      <div class="db-header-center">
+        <div class="db-logo">
+          <span class="ball-icon">⚽</span> Guessi
+        </div>
+      </div>
+
+      <div class="db-header-side db-header-actions">
+        <button id="yesterday-btn" class="db-icon-btn" title="Yesterday's player">⏮️</button>
+        <button id="stats-btn" class="db-icon-btn" title="Stats">📊</button>
+        <button id="settings-btn" class="db-icon-btn" title="Settings">⚙️</button>
+      </div>
+
+    </header>
+
+    <!-- MAIN -->
+    <main class="db-main">
+
+      <!-- SEARCH -->
+      <section class="db-search">
+        <div class="db-search-bar">
+          <span class="db-search-icon">🔍</span>
+          <input id="guess-input" type="text" placeholder="Type a player name..." autocomplete="off" />
+          <button id="guess-button" class="db-guess-btn">Guess</button>
+          <div id="suggestions" class="suggestions"></div>
+          <div id="guess-counter" class="guess-counter hidden">Guess 0 / 8</div>
+        </div>
+      </section>
+
+      <!-- CURRENT GUESS HEADER -->
+      <div id="current-header" class="section-header current-header hidden">CURRENT GUESS</div>
+
+      <!-- CURRENT GUESS CARD -->
+      <section id="player-profile" class="player-profile hidden">
+        <article class="db-player-card current-guess">
+
+          <div class="db-player-header">
+            <img id="player-image" class="db-player-photo" src="" alt="">
+            <h1 id="player-name" class="db-player-name"></h1>
+          </div>
+
+          <div class="db-field">
+            <span class="db-field-label">Clubs</span>
+            <div id="player-clubs" class="pill-row"></div>
+          </div>
+
+          <div class="db-field">
+            <span class="db-field-label">Positions</span>
+            <div id="player-positions" class="pill-row"></div>
+          </div>
+
+          <div class="db-two-col">
+            <div class="db-col">
+              <div class="db-field">
+                <span class="db-field-label">Nationality</span>
+                <span id="player-nationality" class="pill"></span>
+              </div>
+              <div class="db-field">
+                <span class="db-field-label">Status</span>
+                <span id="player-status" class="pill"></span>
+              </div>
+            </div>
+            <div class="db-col">
+              <div class="db-field">
+                <span class="db-field-label">Birth Year</span>
+                <span id="player-year" class="pill"></span>
+              </div>
+              <div class="db-field">
+                <span class="db-field-label">Foot</span>
+                <span id="player-foot" class="pill"></span>
+              </div>
+            </div>
+          </div>
+
+        </article>
+      </section>
+
+      <!-- PREVIOUS GUESSES HEADER -->
+      <div id="previous-header" class="section-header previous-header hidden">PREVIOUS GUESSES</div>
+
+      <!-- PREVIOUS GUESSES LIST -->
+      <section class="db-history">
+        <div id="guesses-container" class="db-history-list"></div>
+      </section>
+
+      <!-- MODAL OVERLAY -->
+      <div id="modal-overlay" class="modal-overlay hidden"></div>
+
+      <!-- SETTINGS MODAL -->
+      <div id="settings-modal" class="db-modal hidden">
+        <div class="db-modal-content">
+          <h2>Settings</h2>
+          <p>Coming soon…</p>
+          <button class="close-modal">Close</button>
+        </div>
+      </div>
+
+      <!-- STATS MODAL -->
+      <div id="stats-modal" class="db-modal hidden">
+        <div class="db-modal-content stats-content">
+
+          <h2>Statistics</h2>
+
+          <div class="stats-grid">
+            <div class="stat-box">
+              <div class="stat-number" id="stat-total-games">0</div>
+              <div class="stat-label">Played</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-number" id="stat-win-pct">0%</div>
+              <div class="stat-label">Win %</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-number" id="stat-current-streak">0</div>
+              <div class="stat-label">Current Streak</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-number" id="stat-longest-streak">0</div>
+              <div class="stat-label">Longest Streak</div>
+            </div>
+          </div>
+
+          <h3>Guess Distribution</h3>
+          <div id="guess-distribution"></div>
+
+          <button class="close-modal" id="close-stats">Close</button>
+        </div>
+      </div>
+
+    </main>
+
+    <footer class="db-footer">
+      <span>Guessi v1.0 · First Version</span>
+    </footer>
+
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="players.js"></script>
+  <script src="leagueMap.js"></script>
+  <script src="continentMap.js"></script>
+  <script src="script.js"></script>
+
+</body>
+</html>
