@@ -84,7 +84,7 @@ body {
 /* SEARCH */
 .db-search-bar {
   position: relative;
-  z-index: 1000;   /* ← THIS FIXES AUTOCOMPLETE */
+  z-index: 10;   /* low enough for modals to sit above */
   display: flex;
   align-items: center;
   gap: 8px;
@@ -461,7 +461,7 @@ body {
   background: var(--bg-card);
   border: 1px solid #333;
   padding: 8px 0;
-  z-index: 9999;
+  z-index: 20;
   max-height: 220px;
   overflow-y: auto;
   border-radius: 0 0 12px 12px;
