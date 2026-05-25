@@ -1293,3 +1293,19 @@ html, body {
   font-size: 13px;
   color: var(--text-muted);
 }
+
+/* Toast link */
+.toast-link {
+  display: block;
+  margin-top: 8px;
+  color: #000;
+  font-size: 15px;
+  font-weight: 800;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Fix header spacing - shift logo slightly left */
+.db-header-center {
+  transform: translateX(-16px);
+}
