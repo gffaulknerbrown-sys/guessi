@@ -88,12 +88,9 @@ document.addEventListener("DOMContentLoaded", () => {
   function saveGameState() {
     const state = {
       date: getTodayKey(),
-      guesses: guessResults.map(g => ({
-        playerName: g.player.name,
-        result: g.result
-      })),
+      guesses: guessResults.map(g => ({ playerName: g.player.name, result: g.result })),
       completed: false,
-      outcome: null // 'win' or 'loss'
+      outcome: null
     };
     localStorage.setItem("guessi-state", JSON.stringify(state));
   }
@@ -111,21 +108,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const state = JSON.parse(raw);
     if (state.date !== getTodayKey()) {
-      // Stale state from a previous day — clear it
       localStorage.removeItem("guessi-state");
       return false;
     }
 
-    // Replay all saved guesses silently to rebuild the UI
     state.guesses.forEach((g, index) => {
       const player = players.find(p => p.name === g.playerName);
       if (!player) return;
 
-      // All guesses except the last go into history
       if (index < state.guesses.length - 1) {
         addGuessRow(player, g.result);
       } else {
-        // Most recent guess goes into the current card
         renderPlayerProfile(player, g.result);
       }
 
@@ -137,25 +130,22 @@ document.addEventListener("DOMContentLoaded", () => {
       updateGuessCounter();
     }
 
-    // If game was completed, restore end state
     if (state.completed) {
       guessInput.disabled = true;
       guessButton.disabled = true;
 
-      if (state.outcome === 'win') {
+      if (state.outcome === "win") {
         profileSection.classList.add("correct-celebration");
         document.getElementById("game-over-overlay").classList.add("active");
         const winBanner = document.getElementById("game-over-banner");
-        winBanner.textContent = `Correct! It was ${targetPlayer.name}`;
+        winBanner.textContent = "Correct! It was " + targetPlayer.name;
         winBanner.classList.add("show");
         document.getElementById("current-header").textContent = "TODAY'S PLAYER";
-      } else if (state.outcome === 'loss') {
-        // Move the last guess into history, then show target player in current card
+      } else if (state.outcome === "loss") {
         if (guessResults.length > 0) {
           const last = guessResults[guessResults.length - 1];
           addGuessRow(last.player, last.result);
         }
-        // Show target player with neutral grey result in current card
         const neutralResult = {
           clubs: targetPlayer.clubs.map(() => "grey"),
           positions: targetPlayer.positions.map(() => "grey"),
@@ -170,13 +160,45 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("game-over-overlay").classList.add("active");
         const failBanner = document.getElementById("game-over-banner");
         failBanner.classList.add("fail");
-        failBanner.innerHTML = `Unlucky! The answer was ${targetPlayer.name} <span class="banner-sub">Better luck tomorrow ⚽</span>`;
+        failBanner.innerHTML = "Unlucky! The answer was " + targetPlayer.name + " <span class=\"banner-sub\">Better luck tomorrow \u26BD</span>";
         failBanner.classList.add("show");
         document.getElementById("current-header").textContent = "TODAY'S PLAYER";
       }
     }
 
     return true;
+  }
+
+  // ------------------------------
+  // SHARE GRID GENERATOR
+  // ------------------------------
+  function generateShareGrid() {
+    const emojiMap = { green: "\uD83D\uDFE9", yellow: "\uD83D\uDFE8", grey: "\u2B1B" };
+
+    const rows = guessResults.map(function(g) {
+      const r = g.result;
+
+      const clubEmoji = r.clubs.every(function(c) { return c === "green"; }) ? "\uD83D\uDFE9"
+        : r.clubs.some(function(c) { return c === "green" || c === "yellow"; }) ? "\uD83D\uDFE8" : "\u2B1B";
+
+      const posEmoji = r.positions.every(function(c) { return c === "green"; }) ? "\uD83D\uDFE9"
+        : r.positions.some(function(c) { return c === "green" || c === "yellow"; }) ? "\uD83D\uDFE8" : "\u2B1B";
+
+      const natEmoji = emojiMap[r.nationality] || "\u2B1B";
+      const ageEmoji = emojiMap[r.age.color] || "\u2B1B";
+      const footEmoji = emojiMap[r.strongFoot] || "\u2B1B";
+      const statusEmoji = emojiMap[r.status] || "\u2B1B";
+
+      return clubEmoji + posEmoji + natEmoji + ageEmoji + footEmoji + statusEmoji;
+    });
+
+    const todayKey = getTodayKey();
+    const lastGuess = guessResults.length > 0 ? guessResults[guessResults.length - 1] : null;
+    const won = lastGuess &&
+      removeAccents(lastGuess.player.name.toLowerCase()) === removeAccents(targetPlayer.name.toLowerCase());
+    const outcome = won ? (guessResults.length + "/8") : "X/8";
+
+    return "Guessi \u26BD " + todayKey + " \u2014 " + outcome + "\n" + rows.join("\n") + "\nguessi.app";
   }
 
   // ------------------------------
@@ -192,7 +214,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!matches.length) { suggestionsBox.style.display = "none"; return; }
 
     suggestionsBox.innerHTML = matches
-      .map(p => `<div class="suggestion-item">${p.name}</div>`)
+      .map(p => "<div class=\"suggestion-item\">" + p.name + "</div>")
       .join("");
     suggestionsBox.style.display = "block";
 
@@ -216,7 +238,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function updateGuessCounter() {
     const counter = document.getElementById("guess-counter");
     counter.classList.remove("hidden");
-    counter.textContent = `Guess ${guessResults.length} / 8`;
+    counter.textContent = "Guess " + guessResults.length + " / 8";
   }
 
   // ------------------------------
@@ -280,7 +302,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       document.getElementById("game-over-overlay").classList.add("active");
       const winBanner = document.getElementById("game-over-banner");
-      winBanner.textContent = `Correct! It was ${targetPlayer.name}`;
+      winBanner.textContent = "Correct! It was " + targetPlayer.name;
       winBanner.classList.add("show");
       document.getElementById("current-header").textContent = "TODAY'S PLAYER";
 
@@ -290,7 +312,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const yesterday = new Date();
         yesterday.setDate(yesterday.getDate() - 1);
-        const yKey = `${yesterday.getFullYear()}-${String(yesterday.getMonth() + 1).padStart(2, "0")}-${String(yesterday.getDate()).padStart(2, "0")}`;
+        const yKey = yesterday.getFullYear() + "-" + String(yesterday.getMonth() + 1).padStart(2, "0") + "-" + String(yesterday.getDate()).padStart(2, "0");
 
         stats.currentStreak = (stats.lastCompletedDate === yKey) ? stats.currentStreak + 1 : 1;
         stats.longestStreak = Math.max(stats.longestStreak, stats.currentStreak);
@@ -304,11 +326,8 @@ document.addEventListener("DOMContentLoaded", () => {
         saveStats(stats);
       }
 
-      markGameComplete('win');
-
-      const guessCount = guessResults.length;
-      const shareMessage = `I guessed the player in ${guessCount} guess${guessCount === 1 ? "" : "es"}! https://guessi.app`;
-      showShareToast(shareMessage);
+      markGameComplete("win");
+      showShareToast(generateShareGrid());
       return;
     }
 
@@ -340,12 +359,12 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
       toast.classList.remove("show");
       setTimeout(() => toast.classList.add("hidden"), 300);
-    }, 5000);
+    }, 6000);
 
     toast.onclick = async () => {
       try {
         await navigator.clipboard.writeText(message);
-        text.textContent = "Copied!";
+        text.textContent = "Copied to clipboard!";
       } catch {
         text.textContent = "Clipboard blocked";
       }
@@ -390,12 +409,12 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("game-over-overlay").classList.add("active");
     const failBanner = document.getElementById("game-over-banner");
     failBanner.classList.add("fail");
-    failBanner.innerHTML = `Unlucky! The answer was ${targetPlayer.name} <span class="banner-sub">Better luck tomorrow ⚽</span>`;
+    failBanner.innerHTML = "Unlucky! The answer was " + targetPlayer.name + " <span class=\"banner-sub\">Better luck tomorrow \u26BD</span>";
     failBanner.classList.add("show");
     document.getElementById("current-header").textContent = "TODAY'S PLAYER";
 
-    showShareToast(`Out of guesses! The player was ${targetPlayer.name}.`);
-    markGameComplete('loss');
+    markGameComplete("loss");
+    showShareToast(generateShareGrid());
   }
 
   // ------------------------------
@@ -454,12 +473,9 @@ document.addEventListener("DOMContentLoaded", () => {
   function comparePositions(guessPositions, targetPositions) {
     const results = [];
     const targetGroups = targetPositions.map(p => positionGroups[p]);
-
-    // Count how many target positions are in each group
     const groupCounts = {};
     targetGroups.forEach(g => groupCounts[g] = (groupCounts[g] || 0) + 1);
 
-    // Count how many target positions in each group are exactly matched (green)
     const greenCountPerGroup = {};
     guessPositions.forEach(pos => {
       if (targetPositions.includes(pos)) {
@@ -478,20 +494,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     return results.map((state, i) => {
       if (state === "green") return "green";
-
       const guessGroup = positionGroups[guessPositions[i]];
-
-      // Group not relevant to target at all
       if (!targetGroups.includes(guessGroup)) return "grey";
-
       const totalInGroup = groupCounts[guessGroup] || 0;
       const greenInGroup = greenCountPerGroup[guessGroup] || 0;
       const remainingInGroup = totalInGroup - greenInGroup;
-
-      // All positions in this group already accounted for by green guesses
       if (remainingInGroup <= 0) return "grey";
-
-      // There are still unmatched positions in this group → yellow
       return "yellow";
     });
   }
@@ -506,7 +514,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function compareAge(guessYear, targetYear) {
     if (guessYear === targetYear) return { color: "green", arrow: "" };
     const close = Math.abs(guessYear - targetYear) <= 2;
-    return { color: close ? "yellow" : "grey", arrow: guessYear < targetYear ? "↑" : "↓" };
+    return { color: close ? "yellow" : "grey", arrow: guessYear < targetYear ? "\u2191" : "\u2193" };
   }
 
   function compareFoot(guess, target) { return guess === target ? "green" : "grey"; }
@@ -571,7 +579,7 @@ document.addEventListener("DOMContentLoaded", () => {
     profileStatus.textContent = player.status;
     applyGlow(profileStatus, result.status);
 
-    profileYear.textContent = `${player.YearOfBirth} ${result.age.arrow}`;
+    profileYear.textContent = player.YearOfBirth + " " + result.age.arrow;
     applyGlow(profileYear, result.age.color);
 
     profileFoot.textContent = player.strongFoot;
@@ -602,7 +610,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const clubsField = document.createElement("div");
     clubsField.classList.add("guess-field");
-    clubsField.innerHTML = `<span class="guess-label">Clubs</span>`;
+    clubsField.innerHTML = "<span class=\"guess-label\">Clubs</span>";
     const clubsRow = document.createElement("div");
     clubsRow.className = "guess-pill-row";
     player.clubs.forEach((club, i) => {
@@ -617,7 +625,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const posField = document.createElement("div");
     posField.classList.add("guess-field");
-    posField.innerHTML = `<span class="guess-label">Positions</span>`;
+    posField.innerHTML = "<span class=\"guess-label\">Positions</span>";
     const posRow = document.createElement("div");
     posRow.className = "guess-pill-row";
     player.positions.forEach((pos, i) => {
@@ -638,7 +646,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const natField = document.createElement("div");
     natField.classList.add("guess-field");
-    natField.innerHTML = `<span class="guess-label">Nationality</span>`;
+    natField.innerHTML = "<span class=\"guess-label\">Nationality</span>";
     const natPill = document.createElement("span");
     natPill.className = "pill";
     natPill.textContent = player.nationality;
@@ -648,7 +656,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const statusField = document.createElement("div");
     statusField.classList.add("guess-field");
-    statusField.innerHTML = `<span class="guess-label">Status</span>`;
+    statusField.innerHTML = "<span class=\"guess-label\">Status</span>";
     const statusPill = document.createElement("span");
     statusPill.className = "pill";
     statusPill.textContent = player.status;
@@ -661,17 +669,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const yearField = document.createElement("div");
     yearField.classList.add("guess-field");
-    yearField.innerHTML = `<span class="guess-label">Birth Year</span>`;
+    yearField.innerHTML = "<span class=\"guess-label\">Birth Year</span>";
     const yearPill = document.createElement("span");
     yearPill.className = "pill";
-    yearPill.textContent = `${player.YearOfBirth} ${result.age.arrow}`;
+    yearPill.textContent = player.YearOfBirth + " " + result.age.arrow;
     applyGlow(yearPill, result.age.color);
     yearField.appendChild(yearPill);
     colRight.appendChild(yearField);
 
     const footField = document.createElement("div");
     footField.classList.add("guess-field");
-    footField.innerHTML = `<span class="guess-label">Foot</span>`;
+    footField.innerHTML = "<span class=\"guess-label\">Foot</span>";
     const footPill = document.createElement("span");
     footPill.className = "pill";
     footPill.textContent = player.strongFoot;
@@ -760,10 +768,8 @@ document.addEventListener("DOMContentLoaded", () => {
       renderHiddenDailyCard();
       document.getElementById("current-header").textContent = "CURRENT GUESS";
 
-      // Restore today's in-progress game if there is one
       restoreGameState();
 
-      // Only re-enable input if game isn't over
       const state = JSON.parse(localStorage.getItem("guessi-state") || "{}");
       if (!state.completed) {
         if (stats.lastCompletedDate === getTodayKey()) {
@@ -779,10 +785,9 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Switch to yesterday mode
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
-    const dateKey = `${yesterday.getFullYear()}-${String(yesterday.getMonth() + 1).padStart(2, "0")}-${String(yesterday.getDate()).padStart(2, "0")}`;
+    const dateKey = yesterday.getFullYear() + "-" + String(yesterday.getMonth() + 1).padStart(2, "0") + "-" + String(yesterday.getDate()).padStart(2, "0");
 
     archiveMode = true;
     const index = getIndexForDate(dateKey);
@@ -802,7 +807,7 @@ document.addEventListener("DOMContentLoaded", () => {
     guessesContainer.innerHTML = "";
     guessInput.disabled = true;
     guessButton.disabled = true;
-    document.getElementById("current-header").textContent = `Yesterday's Player (${dateKey})`;
+    document.getElementById("current-header").textContent = "Yesterday's Player (" + dateKey + ")";
   });
 
   // ------------------------------
@@ -828,11 +833,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const width = (count / max) * 200;
       const bar = document.createElement("div");
       bar.classList.add("guess-bar");
-      bar.innerHTML = `
-        <div class="guess-bar-label">${i}</div>
-        <div class="guess-bar-fill" style="width:${width}px"></div>
-        <div style="margin-left:8px">${count}</div>
-      `;
+      bar.innerHTML = "<div class=\"guess-bar-label\">" + i + "</div><div class=\"guess-bar-fill\" style=\"width:" + width + "px\"></div><div style=\"margin-left:8px\">" + count + "</div>";
       guessDistContainer.appendChild(bar);
     }
 
@@ -847,7 +848,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // ------------------------------
   restoreGameState();
 
-  // If already completed today, lock input
   const savedState = JSON.parse(localStorage.getItem("guessi-state") || "{}");
   if (savedState.completed) {
     guessInput.disabled = true;
