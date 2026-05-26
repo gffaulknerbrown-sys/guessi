@@ -247,6 +247,8 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("player-profile").classList.remove("hidden");
       document.getElementById("current-header").classList.remove("hidden");
       document.getElementById("previous-header").classList.remove("hidden");
+      const preview = document.getElementById("empty-grid-preview");
+      if (preview) preview.classList.add("empty-grid-hidden");
     }
 
     const guessedPlayer = findPlayerByName(value);
@@ -837,5 +839,34 @@ document.addEventListener("DOMContentLoaded", () => {
     guessInput.disabled = true;
     guessButton.disabled = true;
   }
+
+  // ------------------------------
+  // FIRST TIME VISITOR
+  // ------------------------------
+  if (!localStorage.getItem("guessi-visited")) {
+    localStorage.setItem("guessi-visited", "true");
+    setTimeout(() => openModal(helpModal), 500);
+  }
+
+  // ------------------------------
+  // EMPTY GRID PREVIEW
+  // ------------------------------
+  function renderEmptyGrid() {
+    // Only show if no guesses made yet and game not completed
+    if (guessResults.length > 0 || savedState.completed) return;
+
+    const preview = document.getElementById("empty-grid-preview");
+    if (!preview) return;
+
+    const fields = ["Clubs", "Positions", "Nationality", "Birth Year", "Status", "Foot"];
+    fields.forEach(label => {
+      const row = document.createElement("div");
+      row.className = "empty-grid-row";
+      row.innerHTML = "<span class='empty-grid-label'>" + label + "</span><span class='empty-grid-bar'></span>";
+      preview.appendChild(row);
+    });
+  }
+
+  renderEmptyGrid();
 
 }); // END DOMContentLoaded
