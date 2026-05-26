@@ -170,35 +170,18 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ------------------------------
-  // SHARE GRID GENERATOR
+  // SHARE MESSAGE GENERATOR
   // ------------------------------
   function generateShareGrid() {
-    const emojiMap = { green: "\uD83D\uDFE9", yellow: "\uD83D\uDFE8", grey: "\u2B1B" };
-
-    const rows = guessResults.map(function(g) {
-      const r = g.result;
-
-      const clubEmoji = r.clubs.every(function(c) { return c === "green"; }) ? "\uD83D\uDFE9"
-        : r.clubs.some(function(c) { return c === "green" || c === "yellow"; }) ? "\uD83D\uDFE8" : "\u2B1B";
-
-      const posEmoji = r.positions.every(function(c) { return c === "green"; }) ? "\uD83D\uDFE9"
-        : r.positions.some(function(c) { return c === "green" || c === "yellow"; }) ? "\uD83D\uDFE8" : "\u2B1B";
-
-      const natEmoji = emojiMap[r.nationality] || "\u2B1B";
-      const ageEmoji = emojiMap[r.age.color] || "\u2B1B";
-      const footEmoji = emojiMap[r.strongFoot] || "\u2B1B";
-      const statusEmoji = emojiMap[r.status] || "\u2B1B";
-
-      return clubEmoji + posEmoji + natEmoji + ageEmoji + footEmoji + statusEmoji;
-    });
-
-    const todayKey = getTodayKey();
     const lastGuess = guessResults.length > 0 ? guessResults[guessResults.length - 1] : null;
     const won = lastGuess &&
       removeAccents(lastGuess.player.name.toLowerCase()) === removeAccents(targetPlayer.name.toLowerCase());
-    const outcome = won ? (guessResults.length + "/8") : "X/8";
-
-    return "Guessi \u26BD " + todayKey + " \u2014 " + outcome + "\n" + rows.join("\n") + "\nguessi.app";
+    const count = guessResults.length;
+    if (won) {
+      return "I guessed today's Guessi player in " + count + " guess" + (count === 1 ? "" : "es") + "! ⚽ https://guessi.app";
+    } else {
+      return "I couldn't guess today's Guessi player! Can you do better? ⚽ https://guessi.app";
+    }
   }
 
   // ------------------------------
