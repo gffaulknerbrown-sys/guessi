@@ -716,7 +716,11 @@ document.addEventListener("DOMContentLoaded", () => {
     statsModal.classList.add("hidden");
     settingsModal.classList.add("hidden");
     helpModal.classList.add("hidden");
-    if (!archiveMode) {
+
+    // Only re-enable inputs if game is still in progress
+    const currentState = JSON.parse(localStorage.getItem("guessi-state") || "{}");
+    const gameCompleted = currentState.completed;
+    if (!archiveMode && !gameCompleted) {
       guessInput.disabled = false;
       guessButton.disabled = false;
     }

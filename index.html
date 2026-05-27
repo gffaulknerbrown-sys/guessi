@@ -30,6 +30,113 @@
   </div>
   <div id="rolling-ball" class="rolling-ball hidden">⚽</div>
 
+  <!-- MODAL OVERLAY (top level — never clipped by main/app-shell) -->
+  <div id="modal-overlay" class="modal-overlay hidden"></div>
+
+  <!-- HOW TO PLAY MODAL (top level) -->
+  <div id="help-modal" class="db-modal hidden">
+    <div class="db-modal-content help-content">
+      <h2>How to Play</h2>
+
+      <p class="help-intro">Guess today's mystery footballer in <strong>8 guesses</strong>. After each guess, the cards show how close you are.</p>
+
+      <div class="help-section">
+        <h3>🎨 Colours</h3>
+        <div class="help-row">
+          <span class="pill state-green">Green</span>
+          <span class="help-desc">Exact match</span>
+        </div>
+        <div class="help-row">
+          <span class="pill state-yellow">Yellow</span>
+          <span class="help-desc">Same group, but not exact</span>
+        </div>
+        <div class="help-row">
+          <span class="pill state-grey">Grey</span>
+          <span class="help-desc">No match</span>
+        </div>
+      </div>
+
+      <div class="help-section">
+        <h3>⚽ Clubs</h3>
+        <p>🟢 Green — same club as the target player<br>
+        🟡 Yellow — different club, but same league<br>
+        ⚫ Grey — different club and different league</p>
+        <p class="help-note">If a league is fully accounted for by green clubs, remaining clubs in that league go grey.</p>
+      </div>
+
+      <div class="help-section">
+        <h3>🧤 Positions</h3>
+        <p>Positions are grouped: <strong>GK · DEF · MID · ATT</strong></p>
+        <p>🟢 Green — exact position match<br>
+        🟡 Yellow — same group (e.g. CDM when target is CM), and there are still unmatched positions in that group<br>
+        ⚫ Grey — different group, or all positions in that group already matched</p>
+      </div>
+
+      <div class="help-section">
+        <h3>🌍 Nationality</h3>
+        <p>🟢 Green — same country<br>
+        🟡 Yellow — same continent<br>
+        ⚫ Grey — different continent</p>
+      </div>
+
+      <div class="help-section">
+        <h3>📅 Birth Year</h3>
+        <p>🟢 Green — exact year<br>
+        🟡 Yellow — within 2 years (↑ or ↓ arrow shows direction)<br>
+        ⚫ Grey — more than 2 years off</p>
+      </div>
+
+      <div class="help-section">
+        <h3>👟 Foot &amp; Status</h3>
+        <p>🟢 Green — exact match<br>
+        ⚫ Grey — no match</p>
+      </div>
+
+      <button class="close-modal" id="close-help">Got it!</button>
+    </div>
+  </div>
+
+  <!-- SETTINGS MODAL (top level) -->
+  <div id="settings-modal" class="db-modal hidden">
+    <div class="db-modal-content">
+      <h2>Settings</h2>
+      <p>Coming soon…</p>
+      <button class="close-modal">Close</button>
+    </div>
+  </div>
+
+  <!-- STATS MODAL (top level) -->
+  <div id="stats-modal" class="db-modal hidden">
+    <div class="db-modal-content stats-content">
+
+      <h2>Statistics</h2>
+
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div class="stat-number" id="stat-total-games">0</div>
+          <div class="stat-label">Played</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number" id="stat-win-pct">0%</div>
+          <div class="stat-label">Win %</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number" id="stat-current-streak">0</div>
+          <div class="stat-label">Current Streak</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number" id="stat-longest-streak">0</div>
+          <div class="stat-label">Longest Streak</div>
+        </div>
+      </div>
+
+      <h3>Guess Distribution</h3>
+      <div id="guess-distribution"></div>
+
+      <button class="close-modal" id="close-stats">Close</button>
+    </div>
+  </div>
+
   <div class="app-shell">
 
     <!-- HEADER -->
@@ -125,113 +232,6 @@
       <section class="db-history">
         <div id="guesses-container" class="db-history-list"></div>
       </section>
-
-      <!-- MODAL OVERLAY -->
-      <div id="modal-overlay" class="modal-overlay hidden"></div>
-
-      <!-- HOW TO PLAY MODAL -->
-      <div id="help-modal" class="db-modal hidden">
-        <div class="db-modal-content help-content">
-          <h2>How to Play</h2>
-
-          <p class="help-intro">Guess today's mystery footballer in <strong>8 guesses</strong>. After each guess, the cards show how close you are.</p>
-
-          <div class="help-section">
-            <h3>🎨 Colours</h3>
-            <div class="help-row">
-              <span class="pill state-green">Green</span>
-              <span class="help-desc">Exact match</span>
-            </div>
-            <div class="help-row">
-              <span class="pill state-yellow">Yellow</span>
-              <span class="help-desc">Same group, but not exact</span>
-            </div>
-            <div class="help-row">
-              <span class="pill state-grey">Grey</span>
-              <span class="help-desc">No match</span>
-            </div>
-          </div>
-
-          <div class="help-section">
-            <h3>⚽ Clubs</h3>
-            <p>🟢 Green — same club as the target player<br>
-            🟡 Yellow — different club, but same league<br>
-            ⚫ Grey — different club and different league</p>
-            <p class="help-note">If a league is fully accounted for by green clubs, remaining clubs in that league go grey.</p>
-          </div>
-
-          <div class="help-section">
-            <h3>🧤 Positions</h3>
-            <p>Positions are grouped: <strong>GK · DEF · MID · ATT</strong></p>
-            <p>🟢 Green — exact position match<br>
-            🟡 Yellow — same group (e.g. CDM when target is CM), and there are still unmatched positions in that group<br>
-            ⚫ Grey — different group, or all positions in that group already matched</p>
-          </div>
-
-          <div class="help-section">
-            <h3>🌍 Nationality</h3>
-            <p>🟢 Green — same country<br>
-            🟡 Yellow — same continent<br>
-            ⚫ Grey — different continent</p>
-          </div>
-
-          <div class="help-section">
-            <h3>📅 Birth Year</h3>
-            <p>🟢 Green — exact year<br>
-            🟡 Yellow — within 2 years (↑ or ↓ arrow shows direction)<br>
-            ⚫ Grey — more than 2 years off</p>
-          </div>
-
-          <div class="help-section">
-            <h3>👟 Foot &amp; Status</h3>
-            <p>🟢 Green — exact match<br>
-            ⚫ Grey — no match</p>
-          </div>
-
-          <button class="close-modal" id="close-help">Got it!</button>
-        </div>
-      </div>
-
-      <!-- SETTINGS MODAL -->
-      <div id="settings-modal" class="db-modal hidden">
-        <div class="db-modal-content">
-          <h2>Settings</h2>
-          <p>Coming soon…</p>
-          <button class="close-modal">Close</button>
-        </div>
-      </div>
-
-      <!-- STATS MODAL -->
-      <div id="stats-modal" class="db-modal hidden">
-        <div class="db-modal-content stats-content">
-
-          <h2>Statistics</h2>
-
-          <div class="stats-grid">
-            <div class="stat-box">
-              <div class="stat-number" id="stat-total-games">0</div>
-              <div class="stat-label">Played</div>
-            </div>
-            <div class="stat-box">
-              <div class="stat-number" id="stat-win-pct">0%</div>
-              <div class="stat-label">Win %</div>
-            </div>
-            <div class="stat-box">
-              <div class="stat-number" id="stat-current-streak">0</div>
-              <div class="stat-label">Current Streak</div>
-            </div>
-            <div class="stat-box">
-              <div class="stat-number" id="stat-longest-streak">0</div>
-              <div class="stat-label">Longest Streak</div>
-            </div>
-          </div>
-
-          <h3>Guess Distribution</h3>
-          <div id="guess-distribution"></div>
-
-          <button class="close-modal" id="close-stats">Close</button>
-        </div>
-      </div>
 
     </main>
 

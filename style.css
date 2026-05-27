@@ -817,29 +817,30 @@ body {
 /* Centre container */
 .db-header-center {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 2px;
 }
 
 /* DAILYBALL LOGO */
 .db-logo {
   font-family: 'Changa', sans-serif;
-  font-size: 42px;
+  font-size: 28px;
   font-weight: 700;
   color: #ffffff;
   display: flex;
   align-items: center;
-  gap: 4px; /* tighter spacing */
+  gap: 4px;
   user-select: none;
-
-  text-transform: none !important; /* ensure Title Case */
-  letter-spacing: 0 !important;    /* remove forced spacing */
-
+  text-transform: none !important;
+  letter-spacing: 0 !important;
   text-shadow: 0 0 4px rgba(0, 255, 128, 0.25);
+  line-height: 1;
 }
 
 .ball-icon {
-  font-size: 30px;
+  font-size: 22px;
   line-height: 1;
 }
 #game-over-overlay {
@@ -974,11 +975,11 @@ body {
   }
 
   .db-logo {
-    font-size: 28px;
+    font-size: 22px;
   }
 
   .ball-icon {
-    font-size: 22px;
+    font-size: 18px;
   }
 
   .db-icon-btn {
@@ -1111,11 +1112,11 @@ body {
   }
 
   .db-logo {
-    font-size: 22px;
+    font-size: 20px;
   }
 
   .ball-icon {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .db-header-actions {
@@ -1305,10 +1306,7 @@ html, body {
   cursor: pointer;
 }
 
-/* Fix header spacing - shift logo slightly left */
-.db-header-center {
-  transform: translateX(-16px);
-}
+/* db-header-center is defined above in HEADER LAYOUT section */
 
 /* Tagline */
 .db-tagline {
